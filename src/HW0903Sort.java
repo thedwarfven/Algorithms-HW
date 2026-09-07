@@ -82,34 +82,24 @@ public class HW0903Sort {
     }
 
     private static int partition(int[] list, int first, int last) {
-        int pivot = list[first]; // Choose the first element as the pivot
-        int low = first + 1; // Index for forward search
-        int high = last; // Index for backward search
+        int pivot = list[last];
+        int low = first;
 
-        while (high > low) {
-            // Search forward from left
-            while (low <= high && list[low] <= pivot)
-                low++;
-            // Search backward from right
-            while (low <= high && list[high] > pivot)
-                high--;
-            // Swap two elements in the list
-            if (high > low) {
-                int temp = list[high];
-                list[high] = list[low];
+        for (int i = first; i < last; i++) {
+            if (list[i] <= pivot) {
+                int temp = list[i];
+                list[i] = list[low];
                 list[low] = temp;
+
+                low++;
             }
         }
-        while (high > first && list[high] >= pivot)
-            high--;
-        if (pivot > list[high]) {
-            list[first] = list[high];
-            list[high] = pivot;
-            return high;
-        }
-        else {
-            return first;
-        }
+
+        int temp = list[low];
+        list[low] = list[last];
+        list[last] = temp;
+
+        return low;
     }
 
 

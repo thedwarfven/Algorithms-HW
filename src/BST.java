@@ -20,7 +20,7 @@ public class BST<E> implements Tree<E> {
             add(objects[i]);
     }
 
-    @Override /** Returns true if the element is in the tree */
+    @Override
     public boolean search(E e) {
         TreeNode<E> current = root; // Start from the root
 
@@ -38,8 +38,7 @@ public class BST<E> implements Tree<E> {
         return false;
     }
 
-    @Override /** Insert element e into the binary tree
-     * Return true if the element is inserted successfully */
+    @Override
     public boolean insert(E e) {
         if (root == null)
             root = createNewNode(e); // Create a new root
@@ -276,5 +275,32 @@ public class BST<E> implements Tree<E> {
     public void clear() {
         root = null;
         size = 0;
+    }
+    public E getKthSmallest(int k) {
+        if (k < 1 || k > size) {
+            return null;
+        }
+
+        int[] count = {0};
+
+        return getKthSmallest(root, k, count);
+    }
+
+    private E getKthSmallest(TreeNode<E> current, int k, int[] count) {
+        if (current == null) {
+            return null;
+        }
+        // Search left subtree
+        E result = getKthSmallest(current.left, k, count);
+        if (result != null) {
+            return result;
+        }
+        // Visit current node
+        count[0]++;
+        if (count[0] == k) {
+            return current.element;
+        }
+        // Search right subtree
+        return getKthSmallest(current.right, k, count);
     }
 }

@@ -38,5 +38,7 @@ public class TestBST
         BST<Integer> intTree = new BST<>(numbers);
         System.out.print("\nInorder (sorted): ");
         intTree.inorder();
+        System.out.println("\n4th smallest one: "+ intTree.getKthSmallest(4));
+
     }
 }
